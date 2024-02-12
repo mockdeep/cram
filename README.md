@@ -1,39 +1,56 @@
 # Cram
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cram`. To experiment with that code, run `bin/console` for an interactive prompt.
+Cram is a simple flash card app. It cycles through cards and quizzes you. It
+optimizes for reviewing the cards you're having the most trouble with, and
+having occasional review of cards that you've gone through. If you manage to
+get through all of the cards in your deck, it will bump up the standards, until
+you're able to consistently answer correctly.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+For now you'll need to `git clone` the repo and run within the repo directory.
 
 ## Usage
 
-TODO: Write usage instructions here
+First you need to set up a deck to work from. There is an import tool you can
+make use of, `Cram::Actions::Import`. You'll find example scripts in the
+`examples/` directory. The importer will store the formatted deck in your home
+directory under `~/.cram/decks/`. Cram stores metadata about your progress
+inside this file once you start learning, so don't replace it unless you're
+okay losing your progress. We'll probably eventually provide a way to add to an
+existing deck without losing your stats.
+
+Once you have a deck, you can run `exe/cram` to select it and begin practicing.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake spec` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and the created tag, and push the `.gem` file to
+[rubygems.org][rg].
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cram. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/cram/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on [the GitHub repo][rep]. This
+project is intended to be a safe, welcoming space for collaboration, and
+contributors are expected to adhere to the [code of conduct][coc].
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License][mit].
 
 ## Code of Conduct
 
-Everyone interacting in the Cram project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/cram/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Cram project's codebases, issue trackers, chat
+rooms and mailing lists is expected to follow the [code of conduct][coc].
+
+[rg]: https://rubygems.org
+[rep]: git@github.com:mockdeep/cram.git
+[coc]: https://github.com/[USERNAME]/cram/blob/main/CODE_OF_CONDUCT.md
+[mit]: https://opensource.org/licenses/MIT
+
