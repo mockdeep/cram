@@ -4,8 +4,9 @@ require "active_support/all"
 
 module Cram
   DEFAULT_TARGET_SUCCESS_RATIO = 0.60
-  DEFAULT_TARGET_VIEW_RATIO = 0.10
+  DEFAULT_TARGET_VIEW_RATIO = 0.01
   MAX_TARGET_SUCCESS_RATIO = 0.99
+  MIN_PRACTICE_CARDS = 5
 
   class Error < StandardError; end
 
