@@ -6,8 +6,8 @@ module Cram::Actions::Study
       card = next_card(deck, last_card: card)
 
       if card.nil?
-        deck.target_success_ratio += 0.05
-        deck.target_view_ratio += 0.1
+        deck.target_success_ratio += Cram::TARGET_SUCCESS_RATIO_INCREMENT
+        deck.target_view_ratio += Cram::TARGET_VIEW_RATIO_INCREMENT
 
         if deck.target_success_ratio > Cram::MAX_TARGET_SUCCESS_RATIO
           puts "You've completed the deck!"
