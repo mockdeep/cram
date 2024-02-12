@@ -1,30 +1,14 @@
 require 'fileutils'
 require 'yaml'
+require_relative "../lib/cram"
 
 module ImportPortuguese
   def self.call
     lines = File.read('tmp/portuguese_data').split("\n")
 
-    items = lines.map { |line| parse_line(line) }
+    card_data = lines.map { |line| parse_line(line) }
 
-    FileUtils.mkdir_p(decks_dir)
-
-    file_path = File.join(decks_dir, "portuguese_vocab.yml")
-    if File.exist?(file_path)
-      print "File already exists. Overwrite? (y/n) "
-      unless gets.chomp == 'y'
-        puts "Aborting"
-        return
-      end
-    end
-
-    File.write(File.join(decks_dir, "portuguese_vocab.yml"), items.to_yaml)
-
-    puts "Successfully imported #{items.count} items"
-  end
-
-  def self.decks_dir
-    File.join(Dir.home, '.cram/decks')
+    Cram::Actions::Import.call(card_data:, filename: "portuguese_vocab.yml")
   end
 
   def self.parse_line(line)
@@ -34,7 +18,11 @@ module ImportPortuguese
 
     english_word = rest.split(')').first
 
-    { portuguese_word:, part_of_speech:, english_word: }
+    {
+      front: portuguese_word,
+      back: english_word,
+      category: part_of_speech,
+    }
   end
 end
 
