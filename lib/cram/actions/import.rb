@@ -1,7 +1,6 @@
 module Cram::Actions::Import
   DECK_DEFAULTS = {
     target_success_ratio: Cram::DEFAULT_TARGET_SUCCESS_RATIO,
-    target_view_ratio: Cram::DEFAULT_TARGET_VIEW_RATIO,
   }.freeze
 
   CARD_DEFAULTS = {

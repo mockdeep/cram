@@ -17,7 +17,11 @@ class Cram::Models::Card
   def success_ratio
     return 0 if view_count.zero?
 
-    (success_count.to_f / view_count).round(2)
+    success_count.to_f / view_count
+  end
+
+  def review_threshold
+    (2**(success_count * success_ratio)).round
   end
 
   def debug
