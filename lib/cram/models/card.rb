@@ -1,7 +1,7 @@
 class Cram::Models::Card
-  attr_accessor :front, :back, :category, :view_count, :success_count, :active, :jitter
+  attr_accessor :front, :back, :category, :view_count, :success_count, :active, :jitter, :sequence
 
-  def initialize(front:, back:, category:, view_count:, success_count:, active:, jitter:)
+  def initialize(front:, back:, category:, view_count:, success_count:, active:, jitter:, sequence: 0)
     @front = front
     @back = back
     @category = category
@@ -9,6 +9,7 @@ class Cram::Models::Card
     @view_count = view_count
     @active = active
     @jitter = jitter
+    @sequence = sequence
   end
 
   def active?
@@ -27,7 +28,7 @@ class Cram::Models::Card
   end
 
   def review_threshold
-    (2**(success_count * success_ratio * jitter)).round
+    (2**(success_count * success_ratio * jitter)).round + sequence
   end
 
   def debug

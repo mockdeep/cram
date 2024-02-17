@@ -58,7 +58,7 @@ module Cram::Actions::Study
     else
       puts "#{red("✗ Incorrect!")} The answer is: #{yellow(card.back)}"
     end
-    puts "Success ratio is now: #{card.success_ratio}"
+    puts "Success ratio is now: #{card.success_ratio.round(3)}"
     puts "Jitter is now: #{card.jitter}"
     puts "Review threshold is now: #{card.review_threshold}"
     gets

@@ -5,8 +5,8 @@ class Cram::Models::Deck
     @filepath = filepath
     YAML.safe_load_file(filepath, permitted_classes: [Symbol], symbolize_names: true) => { cards:, deck: }
 
-    self.cards = cards.map do |card_data|
-      Cram::Models::Card.new(**card_data)
+    self.cards = cards.map.with_index do |card_data, index|
+      Cram::Models::Card.new(**card_data, sequence: index + 1)
     end
 
     @target_success_ratio = deck.fetch(:target_success_ratio)
