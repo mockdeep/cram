@@ -3,11 +3,6 @@ module Cram::Actions::Import
     target_success_ratio: Cram::DEFAULT_TARGET_SUCCESS_RATIO,
   }.freeze
 
-  CARD_DEFAULTS = {
-    success_count: 0,
-    view_count: 0,
-    active: false,
-  }.freeze
 
   def self.call(card_data:, filename:)
     FileUtils.mkdir_p(Cram.decks_dir)
@@ -30,9 +25,18 @@ module Cram::Actions::Import
     puts "Successfully imported #{card_data.count} cards"
   end
 
+  def self.card_defaults
+    {
+      success_count: 0,
+      view_count: 0,
+      active: false,
+      jitter: rand(Cram::JITTER_RANGE).round(2),
+    }
+  end
+
   def self.generate_cards(card_data)
     card_data.map do |card_datum|
-      Cram::Models::Card.new(**CARD_DEFAULTS, **card_datum).to_h
+      Cram::Models::Card.new(**card_defaults, **card_datum).to_h
     end
   end
 end

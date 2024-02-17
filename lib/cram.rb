@@ -7,6 +7,7 @@ module Cram
   MAX_TARGET_SUCCESS_RATIO = 0.99
   MIN_PRACTICE_CARDS = 10
   TARGET_SUCCESS_RATIO_INCREMENT = 0.05
+  JITTER_RANGE = (0.8..1).freeze
 
   class Error < StandardError; end
 
