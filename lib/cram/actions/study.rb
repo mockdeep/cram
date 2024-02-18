@@ -17,7 +17,7 @@ module Cram::Actions::Study
 
       system('clear')
       display_info(deck:, card:)
-      test_card(card)
+      test_card(deck:, card:)
       write_deck(deck)
     end
   end
@@ -41,27 +41,63 @@ module Cram::Actions::Study
     puts gray("Card view count: #{card.view_count}, Card review threshold: #{card.review_threshold}")
   end
 
-  def self.test_card(card)
-    card.touch
+  def self.test_card(deck:, card:)
     puts
     puts cyan(card.front)
     puts
-    print "Answer: "
-    answer = gets
 
-    if answer.nil?
-      puts "Exiting"
-      exit
-    elsif answer.chomp == card.back
+    similar_cards = select_similar_cards(deck, card)
+    similar_cards.each_with_index do |similar_card, index|
+      puts "#{index + 1}. #{similar_card.back}"
+    end
+
+    answer = get_answer
+
+    selected_card = similar_cards[answer - 1]
+    if selected_card == card
       card.success_count += 1
       puts green("✔ Correct!")
     else
+      card.wrong_answer = selected_card.back
       puts "#{red("✗ Incorrect!")} The answer is: #{yellow(card.back)}"
     end
+    card.touch
     puts "Success ratio is now: #{card.success_ratio.round(3)}"
     puts "Jitter is now: #{card.jitter}"
     puts "Review threshold is now: #{card.review_threshold}"
     gets
+  end
+
+  def self.get_answer
+    print "Answer: "
+    answer = $stdin.getch
+    puts answer
+    if answer == "q" || answer == "\u0004"
+      puts "Exiting"
+      exit
+    end
+
+    Integer(answer)
+
+  rescue ArgumentError
+    puts "Invalid input #{answer.inspect}, please try again"
+    retry
+  end
+
+  def self.select_similar_cards(deck, card)
+    similar_cards = deck.cards.without(card).select do |practice_card|
+      practice_card.category == card.category && practice_card.back != card.back
+    end
+
+    if card.wrong_answer
+      wrong_card = similar_cards.find do |similar_card|
+        similar_card.back == card.wrong_answer
+      end
+
+      (similar_cards.sample(3) + [wrong_card] + [card]).shuffle
+    else
+      (similar_cards.sample(4) + [card]).shuffle
+    end
   end
 
   def self.write_deck(deck)

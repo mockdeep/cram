@@ -1,7 +1,7 @@
 class Cram::Models::Card
-  attr_accessor :front, :back, :category, :view_count, :success_count, :active, :jitter, :sequence
+  attr_accessor :front, :back, :category, :view_count, :success_count, :active, :jitter, :sequence, :wrong_answer
 
-  def initialize(front:, back:, category:, view_count:, success_count:, active:, jitter:, sequence: 0)
+  def initialize(front:, back:, category:, view_count:, success_count:, active:, jitter:, wrong_answer: nil, sequence: 0)
     @front = front
     @back = back
     @category = category
@@ -10,6 +10,7 @@ class Cram::Models::Card
     @active = active
     @jitter = jitter
     @sequence = sequence
+    @wrong_answer = wrong_answer
   end
 
   def active?
@@ -44,6 +45,7 @@ class Cram::Models::Card
       success_count:,
       active:,
       jitter:,
+      wrong_answer:,
     }
   end
 end

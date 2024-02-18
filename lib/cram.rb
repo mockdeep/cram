@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "io/console"
 require "active_support/all"
 
 module Cram

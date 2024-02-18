@@ -10,7 +10,7 @@ module Cram::Actions::SelectDeck
     end
 
     print "Deck number: "
-    deck_number = gets.chomp.to_i
+    deck_number = Integer(gets.chomp)
 
     decks[deck_number - 1]
   end
