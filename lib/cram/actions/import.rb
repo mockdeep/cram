@@ -20,7 +20,7 @@ module Cram::Actions::Import
       cards: generate_cards(card_data),
       deck: DECK_DEFAULTS,
     }, permitted_classes: [Symbol], stringify_names: true)
-    File.write(File.join(Cram.decks_dir, "portuguese_vocab.yml"), yaml)
+    File.write(File.join(Cram.decks_dir, filename), yaml)
 
     puts "Successfully imported #{card_data.count} cards"
   end
