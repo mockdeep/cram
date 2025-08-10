@@ -18,7 +18,6 @@ module Cram::Actions::Study
       system('clear')
       display_info(deck:, card:)
       test_card(deck:, card:)
-      write_deck(deck)
     end
   end
 
@@ -31,12 +30,16 @@ module Cram::Actions::Study
 
     card = deck.pending_cards.first
 
-    card.active = true if card
-    card
+    if card
+      card.active = true
+      return card
+    end
+
+    deck.pratice_cards.sample
   end
 
   def self.display_info(deck:, card:)
-    puts gray("Active cards: #{deck.active_cards.count}, Practice cards: #{deck.practice_cards.count}, Pending cards: #{deck.pending_cards.count}")
+    puts gray("Active cards: #{deck.active_count}, Practice cards: #{deck.practice_count}, Pending cards: #{deck.pending_count}")
     puts gray("Card success ratio: #{card.success_ratio.round(3)}, Target: #{deck.target_success_ratio.round(3)}")
     puts gray("Card view count: #{card.view_count}, Card review threshold: #{card.review_threshold}")
   end
@@ -62,10 +65,11 @@ module Cram::Actions::Study
       puts "#{red("✗ Incorrect!")} The answer is: #{yellow(card.back)}"
     end
     card.touch
+    deck.touch
     puts "Success ratio is now: #{card.success_ratio.round(3)}"
     puts "Jitter is now: #{card.jitter}"
     puts "Review threshold is now: #{card.review_threshold}"
-    gets
+    $stdin.getch
   end
 
   def self.get_answer
@@ -98,10 +102,6 @@ module Cram::Actions::Study
     else
       (similar_cards.sample(4) + [card]).shuffle
     end
-  end
-
-  def self.write_deck(deck)
-    File.write(deck.filepath, deck.to_yaml)
   end
 
   def self.gray(string)
