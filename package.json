@@ -1,0 +1,28 @@
+{
+  "name": "cram",
+  "engines": {
+    "node": "22.18.0"
+  },
+  "version": "0.1.0",
+  "description": "Tool to help memorize things.",
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mockdeep/cram.git"
+  },
+  "author": "\"Robert Fletcher\"",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mockdeep/cram/issues"
+  },
+  "homepage": "https://github.com/mockdeep/cram#readme",
+  "dependencies": {
+    "hanzi": "^2.1.5"
+  }
+}
