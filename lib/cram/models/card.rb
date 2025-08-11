@@ -11,6 +11,7 @@ class Cram::Models::Card
     @jitter = jitter
     @sequence = sequence
     @wrong_answer = wrong_answer
+    self.review_threshold = calculated_review_threshold
   end
 
   def active?
@@ -20,8 +21,11 @@ class Cram::Models::Card
   def touch
     self.view_count += 1
     self.jitter = rand(Cram::JITTER_RANGE).round(2)
-    self.review_threshold =
-      (2**(success_count * success_ratio * jitter)).round + sequence
+    self.review_threshold = calculated_review_threshold
+  end
+
+  def calculated_review_threshold
+    (2**(success_count * success_ratio * jitter)).round + sequence
   end
 
   def success_ratio
