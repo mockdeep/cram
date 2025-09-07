@@ -98,7 +98,12 @@ module Cram::Actions::Study
         similar_card.back == card.wrong_answer
       end
 
-      (similar_cards.sample(3) + [wrong_card] + [card]).shuffle
+      if wrong_card
+        (similar_cards.without(wrong_card).sample(3) + [wrong_card] + [card]).shuffle
+      else
+        card.wrong_answer = nil
+        (similar_cards.sample(4) + [card]).shuffle
+      end
     else
       (similar_cards.sample(4) + [card]).shuffle
     end
