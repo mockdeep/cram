@@ -54,7 +54,7 @@ module Cram::Actions::Study
       puts "#{index + 1}. #{similar_card.back}"
     end
 
-    answer = get_answer
+    answer = get_answer(max: similar_cards.length)
 
     selected_card = similar_cards[answer - 1]
     if selected_card == card
@@ -72,19 +72,25 @@ module Cram::Actions::Study
     $stdin.getch
   end
 
-  def self.get_answer
+  def self.get_answer(max:)
     print "Answer: "
     answer = $stdin.getch
-    puts answer
     if answer == "q" || answer == "\u0004"
       puts "Exiting"
       exit
     end
 
-    Integer(answer)
+    index = Integer(answer)
 
+    if index < 1 || index > max
+      raise ArgumentError, "Invalid answer"
+    end
+
+    puts answer
+
+    index
   rescue ArgumentError
-    puts "Invalid input #{answer.inspect}, please try again"
+    print "\r"
     retry
   end
 
