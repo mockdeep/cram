@@ -1,5 +1,7 @@
 class Cram::Models::Deck
-  attr_accessor :cards, :active_cards, :pending_cards, :practice_cards, :filepath, :target_success_ratio
+  attr_accessor :cards, :active_cards, :pending_cards, :practice_cards, :filepath
+
+  attr_reader :target_success_ratio
 
   def initialize(filepath:)
     self.filepath = filepath
@@ -10,6 +12,10 @@ class Cram::Models::Deck
     end
 
     self.target_success_ratio = deck.fetch(:target_success_ratio)
+  end
+
+  def target_success_ratio=(value)
+    @target_success_ratio = value
     touch
   end
 
