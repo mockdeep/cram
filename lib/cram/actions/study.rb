@@ -7,7 +7,6 @@ module Cram::Actions::Study
 
       if card.nil?
         deck.target_success_ratio += Cram::TARGET_SUCCESS_RATIO_INCREMENT
-        deck.touch
 
         if deck.target_success_ratio > Cram::MAX_TARGET_SUCCESS_RATIO
           puts "You've completed the deck!"
